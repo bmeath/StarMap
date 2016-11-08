@@ -18,7 +18,9 @@ void setup()
 
 void draw()
 {
+  background(0);
   drawGrid(-5, 5, #F000FF);
+  plotStars(stars);
 }
 
 void loadData(String file, String options)
@@ -44,22 +46,46 @@ void printStars(ArrayList<Star> starList)
 void drawGrid(float min, float max, color colour)
 {
   stroke(colour);
+  fill(colour);
+  
+  // I know i could have used map() here
   float xMin = 50, xMax = width - 50;
   float yMin = 50, yMax = height -50;
   float xInterval = (xMax - xMin) / (max - min);
   float yInterval = (yMax - yMin) / (max - min);
-  for(float i = min; i < max; i++)
+  float i, x, y;
+  
+  i = min;
+  for(x = xMin; x <= xMax; x += xInterval)
   {
-    for(float x = xMin; x <= xMax; x += xInterval)
-    {
-      textAlign(CENTER, TOP);
-      text((int)i, x, 0);
-      for( float y = yMin; y <= yMax; y += yInterval)
-      {
-        line(x, yMin, x, yMax);
-        line(xMin, y, xMax, y);
-        
-      }
-    }
+    line(x, yMin, x, yMax);
+    textAlign(CENTER, TOP);
+    text((int)i++, x, 0);
+  }
+  
+  i = min;
+  for(y = yMin; y <= yMax; y += yInterval)
+  {
+    line(xMin, y, xMax, y);
+    textAlign(LEFT, CENTER);
+    text((int)i++, 0, y);
+  }
+}
+
+void plotStars(ArrayList<Star> starList )
+{
+  stroke(#FF0000);
+  
+  float x, y, diameter;
+  for(Star s:starList)
+  {
+    noFill();
+    x = map(s.Xg, -5, 5, 50, width - 50);
+    y = map(s.Yg, -5, 5, 50, height - 50);
+    diameter = s.AbsMag;
+    ellipse(x, y, diameter, diameter);
+    fill(255);
+    textAlign(LEFT, CENTER);
+    text(s.DisplayName, x, y);
   }
 }
