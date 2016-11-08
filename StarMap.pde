@@ -5,6 +5,7 @@
  */
 
 ArrayList<Star> stars = new ArrayList<Star>();
+float xprev, yprev;
 
 void setup()
 {
@@ -21,6 +22,36 @@ void draw()
   background(0);
   drawGrid(-5, 5, #F000FF);
   plotStars(stars);
+}
+
+void mousePressed()
+{
+  for(Star s:stars)
+  {
+    if(s.inRange())
+    {
+      xprev = map(s.Xg, -5, 5, 50, width - 50);
+      yprev = map(s.Yg, -5, 5, 50, height - 50);
+      stroke(#00FFFF);
+      line(xprev, yprev, mouseX, mouseY);
+      text(s.DisplayName, 25, height - 25);
+    }
+  }
+}
+
+void mouseReleased()
+{
+  for(Star s:stars)
+  {
+    if(s.inRange())
+    {
+      
+      
+      stroke(#00FFFF);
+      line(xprev, yprev, map(s.Xg, -5, 5, 50, width - 50), map(s.Yg, -5, 5, 50, height - 50));
+      text(s.DisplayName, 25, height - 25);
+    }
+  }
 }
 
 void loadData(String file, String options)

@@ -30,6 +30,18 @@ class Star
     this.AbsMag = AbsMag;
   }
   
+  boolean inRange()
+  {
+    float x = map(Xg, -5, 5, 50, width - 50);
+    float y = map(Yg, -5, 5, 50, height - 50);
+    float radius = AbsMag/2;
+    if((mouseX > x - radius) && (mouseX < x + radius) && (mouseY > y - radius) && (mouseY < y + radius))
+    {
+      return true;
+    }
+    return false;
+  }
+  
   String toString()
   {
     return hab + "\t" + DisplayName + "\t" + distance + "\t" + Xg + "\t" + Yg + "\t" + Zg + "\t" + AbsMag;
