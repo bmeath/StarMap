@@ -13,15 +13,25 @@ void setup()
   String file = "HabHYG15ly.csv";
   String options = "header";
   loadData(file, options);
+  printStars(stars);
 }
 
 void loadData(String file, String options)
 {
-  tfile = loadTable(file, options);
+  
+  Table tfile = loadTable(file, options);
   
   for(TableRow row :tfile.rows())
   {
     Star s_tmp = new Star(row);
     stars.add(s_tmp);
+  }
+}
+
+void printStars(ArrayList<Star> starList)
+{
+  for(Star s:starList)
+  {
+    println(s);
   }
 }

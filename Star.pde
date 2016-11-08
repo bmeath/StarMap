@@ -15,7 +15,8 @@ class Star
     distance = row.getFloat("Distance");
     Xg = row.getFloat("Xg");
     Yg = row.getFloat("Yg");
-    Zg = row.getFloat("Zg);
+    Zg = row.getFloat("Zg");
+    AbsMag = row.getFloat("AbsMag");
   }
   
   Star(int hab, String DisplayName, float distance, float Xg, float Yg, float Zg, float AbsMag)
@@ -26,6 +27,11 @@ class Star
     this.Xg = Xg;
     this.Yg = Yg;
     this.Zg = Zg;
-    this.AbsMag = AbsMage
+    this.AbsMag = AbsMag;
+  }
+  
+  String toString()
+  {
+    return hab + "\t" + DisplayName + "\t" + distance + "\t" + Xg + "\t" + Yg + "\t" + Zg + "\t" + AbsMag;
   }
 }
