@@ -5,7 +5,12 @@
  */
 
 ArrayList<Star> stars = new ArrayList<Star>();
-float xprev, yprev;
+
+float xprev = 0, yprev = 0;
+float xcur = 0, ycur = 0;
+String infoa = "", infob = "";
+Star starprev, starcur;
+float distance;
 
 void setup()
 {
@@ -22,6 +27,11 @@ void draw()
   background(0);
   drawGrid(-5, 5, #F000FF);
   plotStars(stars);
+  
+  stroke(#00FFFF);
+  line(xprev, yprev, xcur, ycur);
+  text(infoa + " " + infob, 25, height - 25);
+  text("distance between these stars: " + distance + " parsecs", 10, height - 10);
 }
 
 void mousePressed()
@@ -30,11 +40,15 @@ void mousePressed()
   {
     if(s.inRange())
     {
+      // coudln't figure out how to make line going from star to mouse persist
       xprev = map(s.Xg, -5, 5, 50, width - 50);
       yprev = map(s.Yg, -5, 5, 50, height - 50);
       stroke(#00FFFF);
       line(xprev, yprev, mouseX, mouseY);
-      text(s.DisplayName, 25, height - 25);
+      infob = infoa;
+      infoa = s.DisplayName;
+
+      starcur = s;
     }
   }
 }
@@ -45,11 +59,15 @@ void mouseReleased()
   {
     if(s.inRange())
     {
-      
-      
+      xcur = map(s.Xg, -5, 5, 50, width - 50);
+      ycur = map(s.Yg, -5, 5, 50, height - 50);
       stroke(#00FFFF);
-      line(xprev, yprev, map(s.Xg, -5, 5, 50, width - 50), map(s.Yg, -5, 5, 50, height - 50));
-      text(s.DisplayName, 25, height - 25);
+      line(xprev, yprev, xcur, ycur);
+      infob = s.DisplayName;
+      starprev = starcur;
+      starcur = s;
+      
+      distance = dist(starprev.Xg, starprev.Yg, starcur.Xg, starcur.Yg);
     }
   }
 }
